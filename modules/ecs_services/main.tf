@@ -8,8 +8,8 @@ resource "aws_ecs_task_definition" "frontend" {
 
   container_definitions = jsonencode([
     {
-      name      = "frontend",
-      image     = var.frontend_image_url,
+      name         = "frontend",
+      image        = var.frontend_image_url,
       portMappings = [{ containerPort = 80, protocol = "tcp" }]
     }
   ])
@@ -25,8 +25,8 @@ resource "aws_ecs_task_definition" "backend" {
 
   container_definitions = jsonencode([
     {
-      name      = "backend",
-      image     = var.backend_image_url,
+      name         = "backend",
+      image        = var.backend_image_url,
       portMappings = [{ containerPort = 80, protocol = "tcp" }]
     }
   ])
@@ -44,8 +44,8 @@ resource "aws_ecs_service" "frontend" {
   }
 
   network_configuration {
-    subnets         = var.private_subnet_ids
-    security_groups = var.security_group_ids
+    subnets          = var.private_subnet_ids
+    security_groups  = var.security_group_ids
     assign_public_ip = false
   }
 
@@ -68,8 +68,8 @@ resource "aws_ecs_service" "backend" {
   }
 
   network_configuration {
-    subnets         = var.private_subnet_ids
-    security_groups = var.security_group_ids
+    subnets          = var.private_subnet_ids
+    security_groups  = var.security_group_ids
     assign_public_ip = false
   }
 

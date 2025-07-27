@@ -13,10 +13,10 @@ resource "aws_lb" "application_lb" {
 }
 
 resource "aws_lb_target_group" "frontend_tg" {
-  name     = "${var.project}-frontend-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  name        = "${var.project}-frontend-tg"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {
@@ -34,10 +34,10 @@ resource "aws_lb_target_group" "frontend_tg" {
 }
 
 resource "aws_lb_target_group" "backend_tg" {
-  name     = "${var.project}-backend-tg"
-  port     = 5000
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  name        = "${var.project}-backend-tg"
+  port        = 5000
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {
