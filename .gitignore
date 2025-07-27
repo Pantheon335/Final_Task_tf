@@ -1,0 +1,28 @@
+# Create a basic .gitignore for a Terraform project
+gitignore_path = os.path.join(terraform_path, ".gitignore")
+
+gitignore_content = """
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+crash.log
+terraform.tfvars
+override.tf
+override.tf.json
+.terraform.lock.hcl
+
+# Sensitive files
+*.pem
+*.key
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+"""
+
+with open(gitignore_path, "w") as f:
+    f.write(gitignore_content)
+
+gitignore_path
