@@ -5,7 +5,11 @@ variable "subnet_ids" {
 }
 variable "db_name" {}
 variable "db_username" {}
-variable "db_password" {}
+variable "db_password" {
+  description = "Database master password"
+  type        = string
+  sensitive   = true
+}
 variable "instance_class" {
   default = "db.t3.micro"
 }

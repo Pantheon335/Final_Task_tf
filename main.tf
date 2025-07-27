@@ -104,7 +104,7 @@ module "rds" {
   subnet_ids         = module.vpc.private_subnet_ids
   db_name            = "projectdb"
   db_username        = "dbadmin"
-  db_password        = "password"
+  db_password        = var.db_password
   instance_class     = "db.t3.micro"
   allocated_storage  = 20
   security_group_ids = [module.security_groups.db_sg_id]
