@@ -29,15 +29,15 @@ module "vpc" {
 }
 
 module "security_groups" {
-  source = "./modules/security_groups"
-  vpc_id = module.vpc.vpc_id
+  source  = "./modules/security_groups"
+  vpc_id  = module.vpc.vpc_id
   project = var.project
 }
 
 module "dns" {
   root_domain  = var.root_domain
   source       = "./modules/route53"
-  subdomain  = var.subdomain
+  subdomain    = var.subdomain
   alb_dns_name = module.alb.alb_dns_name
   alb_zone_id  = module.alb.alb_zone_id
 }
@@ -52,7 +52,7 @@ module "acm" {
   zone_id     = data.aws_route53_zone.root.zone_id
 }
 locals {
-    fqdn = "${var.subdomain}.${var.root_domain}"
+  fqdn = "${var.subdomain}.${var.root_domain}"
 }
 
 module "alb" {
@@ -80,21 +80,21 @@ module "ecs_cluster" {
 }
 
 module "iam" {
-  source = "./modules/iam"
+  source  = "./modules/iam"
   project = var.project
 }
 
 module "ecs_services" {
-  source                = "./modules/ecs_services"
-  project               = var.project
-  cluster_id            = module.ecs_cluster.id
-  execution_role_arn    = module.iam.execution_role_arn
-  frontend_image_url    = module.ecr_frontend.repository_url
-  backend_image_url     = module.ecr_backend.repository_url
-  private_subnet_ids    = module.vpc.private_subnet_ids
-  security_group_ids    = [module.security_groups.ecs_sg_id]
-  alb_frontend_tg_arn   = module.alb.frontend_tg_arn
-  alb_backend_tg_arn    = module.alb.backend_tg_arn
+  source              = "./modules/ecs_services"
+  project             = var.project
+  cluster_id          = module.ecs_cluster.id
+  execution_role_arn  = module.iam.execution_role_arn
+  frontend_image_url  = module.ecr_frontend.repository_url
+  backend_image_url   = module.ecr_backend.repository_url
+  private_subnet_ids  = module.vpc.private_subnet_ids
+  security_group_ids  = [module.security_groups.ecs_sg_id]
+  alb_frontend_tg_arn = module.alb.frontend_tg_arn
+  alb_backend_tg_arn  = module.alb.backend_tg_arn
 }
 
 module "rds" {

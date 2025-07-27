@@ -6,7 +6,7 @@ vpc_cidr = "10.0.0.0/16"
 
 # Route 53 settings
 root_domain = "brukhy.pp.ua"
-subdomain = "project"
+subdomain   = "project"
 
 # ALB
 project = "brukhy"

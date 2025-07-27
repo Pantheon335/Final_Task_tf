@@ -9,11 +9,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "brukhy-terraform-state"
-    key            = "brukhy-project/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    use_lockfile   = true
+    bucket       = "brukhy-terraform-state"
+    key          = "brukhy-project/terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    use_lockfile = true
   }
 }
 
