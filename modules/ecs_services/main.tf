@@ -27,7 +27,7 @@ resource "aws_ecs_task_definition" "backend" {
     {
       name         = "backend",
       image        = var.backend_image_url,
-      portMappings = [{ containerPort = 80, protocol = "tcp" }]
+      portMappings = [{ containerPort = 5000, protocol = "tcp" }]
     }
   ])
 }
@@ -37,6 +37,10 @@ resource "aws_ecs_service" "frontend" {
   cluster         = var.cluster_id
   desired_count   = 1
   task_definition = aws_ecs_task_definition.frontend.arn
+
+  depends_on = [
+    aws_lb_listener.https_listener
+  ]
 
   capacity_provider_strategy {
     capacity_provider = "FARGATE"
@@ -62,6 +66,10 @@ resource "aws_ecs_service" "backend" {
   desired_count   = 1
   task_definition = aws_ecs_task_definition.backend.arn
 
+  depends_on = [
+    aws_lb_listener.https_listener
+  ]
+
   capacity_provider_strategy {
     capacity_provider = "FARGATE"
     weight            = 1
@@ -76,6 +84,6 @@ resource "aws_ecs_service" "backend" {
   load_balancer {
     target_group_arn = var.alb_backend_tg_arn
     container_name   = "backend"
-    container_port   = 80
+    container_port   = 5000
   }
 }
