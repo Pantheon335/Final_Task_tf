@@ -14,7 +14,6 @@ resource "aws_ecs_task_definition" "frontend" {
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          awslogs-group         = var.log_group_name
           awslogs-region        = "us-east-1"
           awslogs-stream-prefix = "frontend"
       }
@@ -39,7 +38,6 @@ resource "aws_ecs_task_definition" "backend" {
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          awslogs-group         = var.log_group_name
           awslogs-region        = "us-east-1"
           awslogs-stream-prefix = "backend"
       }

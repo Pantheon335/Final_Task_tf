@@ -96,11 +96,9 @@ module "ecs_services" {
   security_group_ids  = [module.security_groups.ecs_sg_id]
   alb_frontend_tg_arn = module.alb.frontend_tg_arn
   alb_backend_tg_arn  = module.alb.backend_tg_arn
-  log_group_name      = module.logs.log_group_name
-
+  
   depends_on = [
     module.alb,
-    module.logs
   ]
 }
 
@@ -115,9 +113,4 @@ module "rds" {
   instance_class     = "db.t3.micro"
   allocated_storage  = 20
   security_group_ids = [module.security_groups.db_sg_id]
-}
-
-module "logs" {
-  source  = "./modules/logs"
-  project = var.project
 }
