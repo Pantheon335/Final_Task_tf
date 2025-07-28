@@ -59,7 +59,8 @@ module "alb" {
   source              = "./modules/alb"
   project             = var.project
   vpc_id              = module.vpc.vpc_id
-  private_subnet_ids  = module.vpc.private_subnet_ids
+#  private_subnet_ids  = module.vpc.private_subnet_ids
+  public_subnet_ids   = module.vpc.public_subnet_ids
   security_group_ids  = [module.security_groups.alb_sg_id]
   acm_certificate_arn = module.acm.certificate_arn
 }
@@ -95,8 +96,12 @@ module "ecs_services" {
   security_group_ids  = [module.security_groups.ecs_sg_id]
   alb_frontend_tg_arn = module.alb.frontend_tg_arn
   alb_backend_tg_arn  = module.alb.backend_tg_arn
+  log_group_name      = module.logs.log_group_name
 
-  depends_on = [module.alb]
+  depends_on = [
+    module.alb,
+    module.logs
+  ]
 }
 
 module "rds" {
@@ -110,4 +115,9 @@ module "rds" {
   instance_class     = "db.t3.micro"
   allocated_storage  = 20
   security_group_ids = [module.security_groups.db_sg_id]
+}
+
+module "logs" {
+  source  = "./modules/logs"
+  project = var.project
 }

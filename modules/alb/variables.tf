@@ -8,10 +8,10 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "private_subnet_ids" {
-  description = "Private subnet IDs for the ALB"
-  type        = list(string)
-}
+#variable "private_subnet_ids" {
+#  description = "Private subnet IDs for the ALB"
+#  type        = list(string)
+#}
 
 variable "security_group_ids" {
   description = "List of security group IDs to associate with the ALB"
@@ -23,3 +23,7 @@ variable "acm_certificate_arn" {
   type        = string
 }
 
+variable "public_subnet_ids" {
+  description = "Private subnet IDs for the ALB"
+  type        = list(string)
+}
