@@ -11,13 +11,6 @@ resource "aws_ecs_task_definition" "frontend" {
       name         = "frontend",
       image        = var.frontend_image_url,
       portMappings = [{ containerPort = 80, protocol = "tcp" }]
-      logConfiguration = {
-        logDriver = "awslogs",
-        options = {
-          awslogs-region        = "us-east-1"
-          awslogs-stream-prefix = "frontend"
-      }
-    }
     }
   ])
 }
@@ -35,13 +28,6 @@ resource "aws_ecs_task_definition" "backend" {
       name         = "backend",
       image        = var.backend_image_url,
       portMappings = [{ containerPort = 5000, protocol = "tcp" }]
-      logConfiguration = {
-        logDriver = "awslogs",
-        options = {
-          awslogs-region        = "us-east-1"
-          awslogs-stream-prefix = "backend"
-      }
-    }
     }
   ])
 }
