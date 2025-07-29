@@ -28,7 +28,16 @@ resource "aws_ecs_task_definition" "backend" {
       name         = "backend",
       image        = var.backend_image_url,
       portMappings = [{ containerPort = 5000, protocol = "tcp" }]
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group         = "/ecs/backend-task"
+          awslogs-region        = "us-east-1"
+          awslogs-stream-prefix = "backend"
+        }
+      }
     }
+    
   ])
 }
 

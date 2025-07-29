@@ -114,3 +114,8 @@ module "rds" {
   allocated_storage  = 20
   security_group_ids = [module.security_groups.db_sg_id]
 }
+
+resource "aws_cloudwatch_log_group" "backend_logs" {
+  name              = "/ecs/backend-task"
+  retention_in_days = 7
+}
