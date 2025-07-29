@@ -36,7 +36,7 @@ resource "aws_ecs_task_definition" "backend" {
           awslogs-stream-prefix = "backend"
         }
       }
-      environment = [
+/*       environment = [
         { name = "FLASK_APP", value = "realworld.app" },
         { name = "FLASK_ENV", value = "production" },
         { name = "FLASK_RUN_PORT", value = "5000" },
@@ -44,7 +44,7 @@ resource "aws_ecs_task_definition" "backend" {
         { name = "POSTGRES_DB", value = "projectdb" },
         { name = "POSTGRES_USER", value = "dbadmin" },
         { name = "POSTGRES_PASSWORD", value = "password" },
-      ]
+      ] */
       healthCheck = {
         command     = ["CMD-SHELL", "curl -f http://127.0.0.1:5000/api/health || exit 1"]
         interval    = 30    # seconds between checks

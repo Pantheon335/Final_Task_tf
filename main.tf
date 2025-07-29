@@ -40,6 +40,7 @@ module "dns" {
   subdomain    = var.subdomain
   alb_dns_name = module.alb.alb_dns_name
   alb_zone_id  = module.alb.alb_zone_id
+  db_address   = module.rds.db_address
 }
 data "aws_route53_zone" "root" {
   name         = var.root_domain

@@ -14,3 +14,11 @@ resource "aws_route53_record" "subdomain" {
     evaluate_target_health = true
   }
 }
+
+resource "aws_route53_record" "db" {
+  zone_id = data.aws_route53_zone.this.zone_id
+  name    = "db.${var.root_domain}"
+  type    = "CNAME"
+  ttl     = 60
+  records = [var.db_address]
+}

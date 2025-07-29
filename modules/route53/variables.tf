@@ -18,9 +18,7 @@ variable "subdomain" {
   type        = string
 }
 
-/* variable "domain_name" {
-  description = "Root domain name"
+variable "db_address" {
+  description = "Database endpoint (address)"
   type        = string
-} */
-
-
+}
