@@ -62,10 +62,6 @@ resource "aws_ecs_service" "frontend" {
   desired_count   = 1
   task_definition = aws_ecs_task_definition.frontend.arn
 
-#  depends_on = [
-#    aws_lb_listener.https_listener
-#  ]
-
   capacity_provider_strategy {
     capacity_provider = "FARGATE"
     weight            = 1
