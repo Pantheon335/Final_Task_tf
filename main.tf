@@ -96,6 +96,8 @@ module "ecs_services" {
   security_group_ids  = [module.security_groups.ecs_sg_id]
   alb_frontend_tg_arn = module.alb.frontend_tg_arn
   alb_backend_tg_arn  = module.alb.backend_tg_arn
+  frontend_sg_id      = module.security_groups.frontend_sg_id
+  backend_sg_id       = module.security_groups.backend_sg_id
 
   depends_on = [
     module.alb,

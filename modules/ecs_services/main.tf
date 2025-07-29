@@ -19,8 +19,8 @@ resource "aws_ecs_task_definition" "backend" {
   family                   = "backend-task"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = "512"
-  memory                   = "1024"
+  cpu                      = "256"
+  memory                   = "512"
   execution_role_arn       = var.execution_role_arn
 
   container_definitions = jsonencode([
@@ -45,13 +45,13 @@ resource "aws_ecs_task_definition" "backend" {
         { name = "POSTGRES_USER", value = "dbadmin" },
         { name = "POSTGRES_PASSWORD", value = "password" },
       ]
-#      healthCheck = {
-#        command     = ["CMD-SHELL", "curl -f https://project.brukhy.pp.ua/api/health || exit 1"]
-#        interval    = 30    # seconds between checks
-#        timeout     = 5     # fail if takes longer than 5s
-#        retries     = 3     # number of failed attempts before marking unhealthy
-#        startPeriod = 10    # wait 10s before starting health checks
-#      }
+      healthCheck = {
+        command     = ["CMD-SHELL", "curl -f http://127.0.0.1:5000/api/health || exit 1"]
+        interval    = 30    # seconds between checks
+        timeout     = 5     # fail if takes longer than 5s
+        retries     = 3     # number of failed attempts before marking unhealthy
+        startPeriod = 60    # wait 10s before starting health checks
+      }
     }
   ])
 }
@@ -73,7 +73,7 @@ resource "aws_ecs_service" "frontend" {
 
   network_configuration {
     subnets          = var.private_subnet_ids
-    security_groups  = var.security_group_ids
+    security_groups  = [var.frontend_sg_id]
     assign_public_ip = false
   }
 
@@ -97,7 +97,7 @@ resource "aws_ecs_service" "backend" {
 
   network_configuration {
     subnets          = var.private_subnet_ids
-    security_groups  = var.security_group_ids
+    security_groups  = [var.backend_sg_id]
     assign_public_ip = false
   }
 

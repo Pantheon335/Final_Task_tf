@@ -7,3 +7,5 @@ variable "private_subnet_ids" { type = list(string) }
 variable "security_group_ids" { type = list(string) }
 variable "alb_frontend_tg_arn" {}
 variable "alb_backend_tg_arn" {}
+variable "frontend_sg_id" {}
+variable "backend_sg_id" {}

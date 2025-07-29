@@ -46,3 +46,8 @@ variable "db_password" {
   description = "Database master password"
   sensitive   = true
 }
+
+/* variable "frontend_sg_id" {
+  description = "frontend sg"
+  type = string
+} */
