@@ -19,8 +19,8 @@ resource "aws_ecs_task_definition" "backend" {
   family                   = "backend-task"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = "256"
-  memory                   = "512"
+  cpu                      = "512"
+  memory                   = "1024"
   execution_role_arn       = var.execution_role_arn
 
   container_definitions = jsonencode([
@@ -36,8 +36,23 @@ resource "aws_ecs_task_definition" "backend" {
           awslogs-stream-prefix = "backend"
         }
       }
+      environment = [
+        { name = "FLASK_APP", value = "realworld.app" },
+        { name = "FLASK_ENV", value = "production" },
+        { name = "FLASK_RUN_PORT", value = "5000" },
+        { name = "POSTGRES_HOST", value = "postgres" },
+        { name = "POSTGRES_DB", value = "projectdb" },
+        { name = "POSTGRES_USER", value = "dbadmin" },
+        { name = "POSTGRES_PASSWORD", value = "password" },
+      ]
+#      healthCheck = {
+#        command     = ["CMD-SHELL", "curl -f https://project.brukhy.pp.ua/api/health || exit 1"]
+#        interval    = 30    # seconds between checks
+#        timeout     = 5     # fail if takes longer than 5s
+#        retries     = 3     # number of failed attempts before marking unhealthy
+#        startPeriod = 10    # wait 10s before starting health checks
+#      }
     }
-    
   ])
 }
 
@@ -74,10 +89,6 @@ resource "aws_ecs_service" "backend" {
   cluster         = var.cluster_id
   desired_count   = 1
   task_definition = aws_ecs_task_definition.backend.arn
-
-#  depends_on = [
-#    aws_lb_listener.https_listener
-#  ]
 
   capacity_provider_strategy {
     capacity_provider = "FARGATE"
