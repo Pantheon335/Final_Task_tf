@@ -35,9 +35,9 @@ locals {
 }
 
 module "alb" {
-  source  = "./modules/alb"
-  project = var.project
-  vpc_id  = module.vpc.vpc_id
+  source              = "./modules/alb"
+  project             = var.project
+  vpc_id              = module.vpc.vpc_id
   public_subnet_ids   = module.vpc.public_subnet_ids
   security_group_ids  = [module.security_groups.alb_sg_id]
   acm_certificate_arn = module.acm.certificate_arn
