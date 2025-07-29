@@ -1,9 +1,6 @@
 resource "aws_acm_certificate" "this" {
   domain_name       = var.domain_name
   validation_method = "DNS"
-  #  lifecycle {
-  #   prevent_destroy       = true
-  #  }
 
   tags = {
     Name = "ACM for ${var.domain_name}"

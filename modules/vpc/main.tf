@@ -94,7 +94,6 @@ resource "aws_route_table_association" "private_az2" {
   route_table_id = aws_route_table.private.id
 }
 
-# Elastic IP for NAT Gateway
 resource "aws_eip" "nat" {
   domain = "vpc"
   tags = {
@@ -102,7 +101,6 @@ resource "aws_eip" "nat" {
   }
 }
 
-# NAT Gateway in the public subnet
 resource "aws_nat_gateway" "this" {
   allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.public_az1.id
@@ -112,7 +110,6 @@ resource "aws_nat_gateway" "this" {
   depends_on = [aws_internet_gateway.this]
 }
 
-# Update private route table to use the NAT Gateway
 resource "aws_route" "private_nat_gateway" {
   route_table_id         = aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"

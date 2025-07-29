@@ -41,8 +41,8 @@ resource "aws_lb_target_group" "backend_tg" {
   target_type = "ip"
 
   health_check {
-    path                = "/api/health" # or your API health endpoint
-    interval            = 30
+    path                = "/api/health"
+    interval            = 300
     timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 2

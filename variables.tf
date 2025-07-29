@@ -27,11 +27,6 @@ variable "private_subnet_cidr" {
   type        = string
 }
 
-/* variable "public_subnet_id" {
-  description = "Smth for VPC"
-  type        = string
-} */
-
 variable "subdomain" {
   description = "Subdomain (to be created)"
   type        = string
@@ -46,8 +41,3 @@ variable "db_password" {
   description = "Database master password"
   sensitive   = true
 }
-
-/* variable "frontend_sg_id" {
-  description = "frontend sg"
-  type = string
-} */

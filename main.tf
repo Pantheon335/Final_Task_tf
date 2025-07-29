@@ -1,25 +1,3 @@
-/* terraform {
-  required_version = ">= 1.12.2"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.76"
-    }
-}
-  backend "s3" {
-    bucket         = "brukhy-terraform-state"    # Your S3 bucket name
-    key            = "envs/prod/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "brukhy-terraform-locks"    # Optional for state locking
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-} */
-
 module "vpc" {
   source              = "./modules/vpc"
   project             = "brukhy"
@@ -60,7 +38,6 @@ module "alb" {
   source  = "./modules/alb"
   project = var.project
   vpc_id  = module.vpc.vpc_id
-  #  private_subnet_ids  = module.vpc.private_subnet_ids
   public_subnet_ids   = module.vpc.public_subnet_ids
   security_group_ids  = [module.security_groups.alb_sg_id]
   acm_certificate_arn = module.acm.certificate_arn
